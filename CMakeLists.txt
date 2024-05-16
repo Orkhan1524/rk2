@@ -5,7 +5,7 @@ add_executable(Iterator main.cpp)
 enable_testing()
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(Iterator tests/test.cpp)
-target_link_libraries(Iterator ${GTEST_LIBRARIES} pthread)
+add_executable(Iterator1 tests/test.cpp)
+target_link_libraries(Iterator1 ${GTEST_LIBRARIES} pthread)
 
-add_test(NAME Iterator COMMAND Iterator)
+add_test(NAME Iterator1 COMMAND Iterator1)
