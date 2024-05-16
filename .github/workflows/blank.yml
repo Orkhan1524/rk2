@@ -1,0 +1,37 @@
+name: CMake
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install CMake
+        run: sudo apt-get install -y cmake
+      - name: List contents of the directory
+        run: ls -la
+      - name: Verify CMakeLists.txt location
+        run: |
+          ls -la
+          test -e CMakeLists.txt || { echo "CMakeLists.txt not found"; exit 1; }
+      - name: Remove existing build directory
+        run: rm -rf build
+      - name: Create build directory
+        run: mkdir build
+      - name: Configure CMake
+        run: cmake -S . -B build
+      - name: Build
+        run: cmake --build build
+      - name: Run tests
+        run: ctest --test-dir build
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build-artifact
+          path: build/
